@@ -24,8 +24,8 @@ class OrderForm(forms.ModelForm):
             'country': 'Country',
             'post_code': 'Postal Code',
             'town_or_city': 'Town or City',
-            'street_address1': '',
-            'street_address2': '',
+            'street_address1': 'street_address1',
+            'street_address2': 'street_address2',
             'county': 'County',
         }
 
