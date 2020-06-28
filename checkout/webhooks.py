@@ -10,10 +10,10 @@ import stripe
 def webhook(request):
     """ listen for webhooks from stripe """
     # setup
-    wh_secret = settings.STRIPW_WH_SECRET
+    wh_secret = settings.STRIPE_WH_SECRET
     stripe.api_key = settings.STRIPE_SECRET_KEY
 
-    # get te webhook
+    # get the webhook
     payload = request.body
     sig_header = request.META['HTTP_STRIPE_SIGNATURE']
     event = None
@@ -40,7 +40,7 @@ def webhook(request):
     # map webhook events to relevant handler functions
     event_map = {
         'payment_intent.succeeded': handler.handle_payment_intent_succeeded,
-        'payment_intent.payment_failed': handler.handle_payment_intent_paymentfailed
+        'payment_intent.payment_failed': handler.handle_payment_intent_payment_failed,
     }
 
     # get the webhook type from stripe
