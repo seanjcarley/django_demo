@@ -26,7 +26,7 @@ SECRET_KEY = '!q)0ed#ezn#1i4!ouzwk^#kbujmge-42&qhe0$7nymjgry#ps3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['django-ecomms-demo.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -119,16 +119,17 @@ WSGI_APPLICATION = 'boutique_ado.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
-DATABASES = {
-    'default': dj_database_url.parse('postgres://wiwyazjifbpfmp:bac17f80a550d04781596708cfa9e762927b649b0ce554296126a8aa8d5ad8fb@ec2-54-247-118-139.eu-west-1.compute.amazonaws.com:5432/d5t4hm4d05bpjs')
-}
+if 'DATABASE_URL' in os.environ:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
 
 # Password validation
