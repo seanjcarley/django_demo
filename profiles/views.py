@@ -1,10 +1,12 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from .models import UserProfile
 from .forms import UserProfileForm
 from checkout.models import Order
 
 # Create your views here.
+@login_required
 def profile(request):
     """ display the user's profile """
 
@@ -19,7 +21,7 @@ def profile(request):
             messages.error(request, 'Update Failed. Please Ensure the Form is Valid.')
     else:
         form = UserProfileForm(instance=profile)
-        
+
     orders = profile.orders.all()
 
     template = 'profiles/profile.html'
